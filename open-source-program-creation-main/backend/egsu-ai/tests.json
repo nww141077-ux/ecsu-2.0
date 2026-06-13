@@ -1,0 +1,51 @@
+{
+  "tests": [
+    {
+      "name": "Статус — список провайдеров",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 200,
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Диалог — авто-выбор провайдера",
+      "method": "POST",
+      "path": "/",
+      "body": {"message": "Привет", "session_id": "test-001", "history": [], "provider": "auto"},
+      "expectedStatus": 200,
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "DB — схема базы данных",
+      "method": "POST",
+      "path": "/",
+      "body": {"db_action": "db_schema"},
+      "expectedStatus": 200,
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "DB — количество инцидентов",
+      "method": "POST",
+      "path": "/",
+      "body": {"db_action": "db_count", "table": "incidents"},
+      "expectedStatus": 200,
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "DB — недоступная таблица",
+      "method": "POST",
+      "path": "/",
+      "body": {"db_action": "db_count", "table": "admin_users"},
+      "expectedStatus": 400,
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Далан-1 режим — dalan1_mode",
+      "method": "POST",
+      "path": "/",
+      "body": {"message": "Как тебя зовут?", "session_id": "test-dalan1", "history": [], "provider": "auto", "dalan1_mode": true},
+      "expectedStatus": 200,
+      "bodyMatcher": "partial"
+    }
+  ]
+}
