@@ -1,80 +1,156 @@
 import { useNavigate } from "react-router-dom";
-import Icon from "@/components/ui/icon";
+
+const stats = [
+  { value: "24/7", label: "Мониторинг" },
+  { value: "12+", label: "Модулей" },
+  { value: "99.9%", label: "Доступность" },
+  { value: "ECSU", label: "Платформа" },
+];
+
+const features = [
+  {
+    icon: "🛡️",
+    title: "Безопасность",
+    text: "Управление угрозами, блокировками, инцидентами и защитой данных в одном интерфейсе.",
+  },
+  {
+    icon: "💰",
+    title: "Финансы",
+    text: "Контроль счетов, аналитика, выплаты, правила распределения средств и статус операций.",
+  },
+  {
+    icon: "📊",
+    title: "Аналитика",
+    text: "Сводки, интеллект-аналитика, визуализация данных и отчеты по событиям.",
+  },
+  {
+    icon: "⚙️",
+    title: "Автоматизация",
+    text: "Сценарии, работа с действиями, интеграции и централизованное управление платформой.",
+  },
+];
 
 export default function Index() {
   const navigate = useNavigate();
 
   return (
-    <div
-      className="min-h-screen flex flex-col items-center justify-center"
-      style={{ background: "#070c18", color: "white" }}
-    >
-      {/* Logo */}
-      <div className="flex flex-col items-center gap-4 mb-10">
-        <div
-          className="w-20 h-20 rounded-3xl flex items-center justify-center shadow-2xl"
-          style={{ background: "linear-gradient(135deg, #6366f1, #a855f7)" }}
-        >
-          <Icon name="BrainCircuit" size={40} className="text-white" />
-        </div>
-        <div className="text-center">
-          <div className="text-3xl font-bold text-white tracking-tight">EGSU</div>
-          <div className="text-sm text-indigo-400/70 mt-1">
-            Единая государственная система управления · 2.0
-          </div>
-        </div>
-      </div>
-
-      {/* Card */}
-      <div
-        className="w-full max-w-sm mx-4 p-8 rounded-3xl flex flex-col gap-5"
-        style={{
-          background: "rgba(255,255,255,0.03)",
-          border: "1px solid rgba(99,102,241,0.25)",
-          backdropFilter: "blur(20px)",
-        }}
-      >
-        <div className="text-center mb-1">
-          <div className="text-lg font-bold text-white">Добро пожаловать</div>
-          <div className="text-sm text-white/40 mt-1">
-            Войдите чтобы продолжить работу
+    <div className="site-shell mesh-bg">
+      <header className="topbar">
+        <div className="brand-wrap">
+          <div className="brand-mark">E</div>
+          <div>
+            <div className="brand-name">ECSU 2.0</div>
+            <div className="brand-sub">Unified Platform</div>
           </div>
         </div>
 
-        <button
-          onClick={() => navigate("/egsu/dashboard")}
-          className="w-full py-3.5 rounded-2xl font-bold text-sm text-white flex items-center justify-center gap-2 transition-all hover:scale-[1.02] hover:opacity-95 active:scale-[0.98]"
-          style={{ background: "linear-gradient(135deg, #6366f1, #a855f7)" }}
-        >
-          <Icon name="LayoutDashboard" size={17} />
-          Открыть приложение
-        </button>
+        <nav className="topnav" aria-label="Главная навигация">
+          <button onClick={() => navigate("/egsu/start")}>Система</button>
+          <button onClick={() => navigate("/egsu/dashboard")}>Кабинет</button>
+          <button onClick={() => navigate("/admin")}>Админ</button>
+        </nav>
+      </header>
 
-        <div className="relative flex items-center gap-3">
-          <div className="flex-1 h-px" style={{ background: "rgba(255,255,255,0.08)" }} />
-          <span className="text-xs text-white/25">или</span>
-          <div className="flex-1 h-px" style={{ background: "rgba(255,255,255,0.08)" }} />
+      <main className="hero-section">
+        <div className="hero-copy">
+          <span className="eyebrow">Единая централизованная система управления</span>
+          <h1>
+            Контроль <span>безопасности</span>, данных и операций в одном месте.
+          </h1>
+          <p>
+            ECSU 2.0 объединяет мониторинг инцидентов, финансовую аналитику, защиту
+            инфраструктуры, автоматизацию процессов и управление доступом для владельца,
+            команды и пользователей.
+          </p>
+
+          <div className="cta-row">
+            <button className="btn-primary" onClick={() => navigate("/egsu/start")}>
+              Перейти в систему
+            </button>
+            <button className="btn-secondary" onClick={() => navigate("/egsu/dashboard")}>
+              Смотреть дашборд
+            </button>
+          </div>
+
+          <div className="trust-row">
+            <span>Реальное управление</span>
+            <span>Безопасность</span>
+            <span>Масштабируемость</span>
+          </div>
         </div>
 
-        <button
-          onClick={() => navigate("/admin")}
-          className="w-full py-3 rounded-2xl font-medium text-sm flex items-center justify-center gap-2 transition-all hover:opacity-80"
-          style={{
-            background: "rgba(255,255,255,0.04)",
-            border: "1px solid rgba(255,255,255,0.1)",
-            color: "rgba(255,255,255,0.5)",
-          }}
-        >
-          <Icon name="ShieldCheck" size={15} />
-          Вход для администратора
-        </button>
-      </div>
+        <div className="hero-panel glass-panel">
+          <div className="status-row">
+            <div className="status-dot" />
+            <span>System online</span>
+          </div>
 
-      {/* Footer */}
-      <div className="mt-10 text-center text-xs text-white/20 space-y-1">
-        <div>© 2026 Николаев Владимир Владимирович</div>
-        <div>Все права защищены</div>
-      </div>
+          <div className="mini-block">
+            <div className="mini-label">Уровень защиты</div>
+            <div className="mini-value positive">99.9%</div>
+          </div>
+
+          <div className="monitor-list">
+            <div className="monitor-item">
+              <span>Инциденты</span>
+              <strong>1,247</strong>
+            </div>
+            <div className="monitor-item">
+              <span>Решено</span>
+              <strong>893</strong>
+            </div>
+            <div className="monitor-item">
+              <span>Активных</span>
+              <strong>241</strong>
+            </div>
+          </div>
+
+          <div className="signal-bars" aria-label="Состояние системы">
+            <span style={{ height: "38%" }} />
+            <span style={{ height: "52%" }} />
+            <span style={{ height: "68%" }} />
+            <span style={{ height: "78%" }} />
+            <span style={{ height: "100%" }} />
+          </div>
+        </div>
+      </main>
+
+      <section className="stats-grid" aria-label="Основные показатели">
+        {stats.map((stat) => (
+          <div key={stat.label} className="stat-card glass-panel">
+            <div className="stat-value">{stat.value}</div>
+            <div className="stat-label">{stat.label}</div>
+          </div>
+        ))}
+      </section>
+
+      <section className="features-section">
+        <div className="section-heading">
+          <span className="eyebrow">Что умеет система</span>
+          <h2>Готовый инструментарий для управления цифровым объектом</h2>
+        </div>
+
+        <div className="feature-grid">
+          {features.map((feature) => (
+            <article key={feature.title} className="feature-card glass-panel">
+              <div className="feature-icon">{feature.icon}</div>
+              <h3>{feature.title}</h3>
+              <p>{feature.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="cta-banner glass-panel">
+        <div>
+          <span className="eyebrow">Готовы начать?</span>
+          <h3>Подключите систему и управляйте цифровыми процессами в одном окне.</h3>
+        </div>
+        <button className="btn-primary" onClick={() => navigate("/egsu/start")}>
+          Открыть ECSU 2.0
+        </button>
+      </section>
     </div>
   );
 }
+
