@@ -1,48 +1,39 @@
-# EGSU 2.0 — Система управления образовательным процессом
+# NexaFlow / ECSU 2.0
 
-**EGSU** (Educational Global System Unified) 2.0 — модульная система для автоматизации учебного процесса в вузах.
+**NexaFlow (ECSU 2.0)** — веб-приложение с интерфейсом на React, TypeScript и Vite, Python-функциями backend и SQL-миграциями PostgreSQL. В репозитории представлены страницы панели, интеграционные модули и документация по развёртыванию.
 
-## Описание проекта
+## Авторство и права
 
-EGSU 2.0 включает:
-* **Frontend** — веб‑интерфейс для студентов и преподавателей;
-* **Backend** — API‑сервер на Python (Django/Flask);
-* **База данных** — PostgreSQL с миграциями.
+Автор и заявленный правообладатель проекта: **Николаев Владимир Владимирович**. Согласно предоставленной владельцем информации, проект создавался с использованием конструктора сайта **poehali.dev**; репозиторий содержит экспортируемый исходный код и дальнейшие изменения.
 
-## Структура проекта
+Сведения об авторстве, лицензии, границах сторонних компонентов и платформе создания собраны в [`AUTHORSHIP_AND_LICENSING.md`](open-source-program-creation-main/AUTHORSHIP_AND_LICENSING.md). До распространения проекта проверьте историю проекта и условия poehali.dev, а также лицензии зависимостей и сторонних материалов.
 
-\`
-ecsu-2.0/
-├── backend/          # Серверная часть
-├── frontend/         # Клиентская часть
-├── db_migrations/    # Миграции базы данных
-├── public/           # Статические файлы
-└── README.md        # Этот файл
-\`
+## Структура
 
-## Установка и запуск
+- `open-source-program-creation-main/` — приложение и его исходники.
+- `open-source-program-creation-main/src/` — клиентская часть.
+- `open-source-program-creation-main/backend/` — Python-функции.
+- `open-source-program-creation-main/db_migrations/` — SQL-миграции.
+- `assets/` — ресурсы репозитория.
 
-### Frontend
-1. Перейдите в папку frontend/.
-2. Установите зависимости: npm install.
-3. Запустите сервер разработки: npm run dev.
+## Запуск frontend
 
-### Backend
-1. Перейдите в папку backend/.
-2. Создайте виртуальное окружение: python -m venv venv.
-3. Активируйте его: venv\Scripts\activate (Windows).
-4. Установите зависимости: pip install -r requirements.txt.
-5. Примените миграции: python manage.py migrate.
-6. Запустите сервер: python manage.py runserver.
+Из каталога `open-source-program-creation-main/`:
 
-## Вклад в проект
+```bash
+npm install
+npm run dev
+```
 
-Мы приветствуем вклад в развитие EGSU 2.0. Для этого:
-1. Создайте ветку: git checkout -b feature/your-feature.
-2. Внесите изменения.
-3. Отправьте ветку на GitHub: git push origin feature/your-feature.
-4. Создайте Pull Request на GitHub.
+Сборка и проверки:
+
+```bash
+npm run build
+npm run lint
+```
+
+Backend и база данных требуют отдельной настройки; см. `open-source-program-creation-main/MIGRATION_EDITOR.md`.
 
 ## Лицензия
 
-Проект распространяется под лицензией MIT. Подробнее — в файле LICENSE.
+Для оригинальных материалов проекта заявлена проприетарная лицензия **All Rights Reserved**, если иное не указано для конкретного компонента. Сторонние библиотеки, шрифты, изображения и сервисы регулируются собственными лицензиями и условиями. Подробности и оговорки — в [`open-source-program-creation-main/AUTHORSHIP_AND_LICENSING.md`](open-source-program-creation-main/AUTHORSHIP_AND_LICENSING.md).
