@@ -1,32 +1,7 @@
-const { app, BrowserWindow, shell } = require("electron");
+const { app, BrowserWindow, session, shell } = require("electron");
+const path = require("node:path");
 
-const DEFAULT_APP_URL = "https://ecsu-system-2026.web.app/egsu/start";
-const APP_URL = process.env.ECSU_DESKTOP_URL || DEFAULT_APP_URL;
-const TRUSTED_HOSTS = new Set([
-  "ecsu-system-2026.web.app",
-  "escu-nww.com",
-  "www.escu-nww.com",
-]);
-
-function isTrustedAppUrl(value) {
-  try {
-    const url = new URL(value);
-    return url.protocol === "https:" && TRUSTED_HOSTS.has(url.hostname);
-  } catch {
-    return false;
-  }
-}
-
-function openExternalHttpUrl(value) {
-  try {
-    const url = new URL(value);
-    if (url.protocol === "https:" || url.protocol === "http:") {
-      void shell.openExternal(url.toString());
-    }
-  } catch {
-    // Ignore malformed URLs and non-web protocols.
-  }
-}
+const BLOCKED_HOSTS = new Set(["functions.poehali.dev", "cdn.poehali.dev", "bucket.poehali.dev"]);
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -36,7 +11,7 @@ function createWindow() {
     minHeight: 620,
     show: false,
     autoHideMenuBar: true,
-    title: "ECSU 2.0",
+    title: "ECSU 2.0 — локальный режим",
     backgroundColor: "#060b14",
     webPreferences: {
       nodeIntegration: false,
@@ -46,24 +21,26 @@ function createWindow() {
     },
   });
 
-  win.once("ready-to-show", () => win.show());
+  // Desktop package is a local/offline frontend. It must not silently call the old hosted backend.
+  session.defaultSession.webRequest.onBeforeRequest({ urls: ["*://*.poehali.dev/*"] }, (details, callback) => {
+    try {
+      const hostname = new URL(details.url).hostname;
+      callback({ cancel: BLOCKED_HOSTS.has(hostname) || hostname.endsWith(".poehali.dev") });
+    } catch {
+      callback({ cancel: true });
+    }
+  });
 
+  win.once("ready-to-show", () => win.show());
   win.webContents.setWindowOpenHandler(({ url }) => {
-    openExternalHttpUrl(url);
+    try {
+      const parsed = new URL(url);
+      if (parsed.protocol === "https:" || parsed.protocol === "http:") void shell.openExternal(parsed.toString());
+    } catch { /* ignore invalid urls */ }
     return { action: "deny" };
   });
 
-  win.webContents.on("will-navigate", (event, url) => {
-    if (isTrustedAppUrl(url)) return;
-    event.preventDefault();
-    openExternalHttpUrl(url);
-  });
-
-  if (!isTrustedAppUrl(APP_URL)) {
-    win.loadURL(DEFAULT_APP_URL);
-    return;
-  }
-  win.loadURL(APP_URL);
+  win.loadFile(path.join(__dirname, "..", "dist", "index.html"));
 }
 
 app.whenReady().then(() => {

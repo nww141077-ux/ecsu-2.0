@@ -7,7 +7,7 @@ Write-Host "Устанавливаю зависимости проекта..." -
 npm install
 if ($LASTEXITCODE -ne 0) { throw "npm install завершился с ошибкой" }
 
-Write-Host "Собираю ECSU 2.0 и Windows-установщик..." -ForegroundColor Cyan
+Write-Host "Собираю локальную desktop-версию и Windows-установщик..." -ForegroundColor Cyan
 npm run desktop:build:win
 if ($LASTEXITCODE -ne 0) { throw "Сборка установщика завершилась с ошибкой" }
 
